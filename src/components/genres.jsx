@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Genres = props => {
   console.log("props: ", props);
-  const { genres: allGenres, selectedGenre, onSelect } = props;
+  const { genres: allGenres, selectedGenre, onItemSelect } = props;
   console.log("selectedGenre: ", selectedGenre);
 
   const genres = allGenres;
@@ -20,7 +20,7 @@ const Genres = props => {
           }
           style={{ cursor: "pointer" }}
           onClick={() => {
-            onSelect({ _id: "all", name: "All Genres" });
+            onItemSelect({ _id: "all", name: "All Genres" });
           }}
         >
           All Genres
@@ -35,7 +35,7 @@ const Genres = props => {
             }
             style={{ cursor: "pointer" }}
             onClick={() => {
-              onSelect(genre);
+              onItemSelect(genre);
             }}
           >
             {genre.name}

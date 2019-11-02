@@ -85,7 +85,7 @@ class Movies extends Component {
       <Genre
         genres={genres}
         selectedGenre={selectedGenre}
-        onSelect={this.handleSelectGenre}
+        onItemSelect={this.handleSelectGenre}
       ></Genre>
     );
   }
