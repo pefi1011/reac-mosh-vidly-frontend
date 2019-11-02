@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 
 const Genres = props => {
   console.log("props: ", props);
-  const { genres: allGenres, selectedGenre, onItemSelect } = props;
+  const {
+    genres: allGenres,
+    selectedGenre,
+    onItemSelect,
+    textProperty,
+    valueProperty
+  } = props;
   console.log("selectedGenre: ", selectedGenre);
 
   const genres = allGenres;
@@ -27,9 +33,9 @@ const Genres = props => {
         </li>
         {genres.map(genre => (
           <li
-            key={genre._id}
+            key={genre[valueProperty]}
             className={
-              selectedGenre._id === genre._id
+              selectedGenre._id === genre[valueProperty]
                 ? "list-group-item active"
                 : "list-group-item"
             }
@@ -38,7 +44,7 @@ const Genres = props => {
               onItemSelect(genre);
             }}
           >
-            {genre.name}
+            {genre[textProperty]}
           </li>
         ))}
       </ul>

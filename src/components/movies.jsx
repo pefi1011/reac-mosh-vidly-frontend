@@ -68,8 +68,8 @@ class Movies extends Component {
       <React.Fragment>
         <div className="container">
           <div className="row justify-content-md-center">
-            <div className="col-2">{this.renderGenres()}</div>
-            <div className="col-10"> {this.renderMovies()}</div>
+            <div className="col-3">{this.renderGenres()}</div>
+            <div className="col"> {this.renderMovies()}</div>
           </div>
         </div>
       </React.Fragment>
@@ -84,6 +84,8 @@ class Movies extends Component {
     return (
       <Genre
         genres={genres}
+        textProperty="name"
+        valueProperty="_id"
         selectedGenre={selectedGenre}
         onItemSelect={this.handleSelectGenre}
       ></Genre>
