@@ -55,7 +55,9 @@ const Genres = props => {
 Genres.propTypes = {
   genres: PropTypes.array.isRequired,
   selectedGenre: PropTypes.object,
-  onSelect: PropTypes.func.isRequired
+  valueProperty: PropTypes.string.isRequired,
+  textProperty: PropTypes.string.isRequired,
+  onItemSelect: PropTypes.func.isRequired
 };
 
 export default Genres;
