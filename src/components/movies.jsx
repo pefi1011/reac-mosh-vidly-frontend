@@ -113,7 +113,7 @@ class Movies extends Component {
 
     return (
       <React.Fragment>
-        <h4>Showing {moviesCount} movies in the database</h4>
+        <h4>Showing {filteredMovies.length} movies in the database</h4>
         <hr></hr>
         <div id="table-header" className="row">
           <div className="col font-weight-bold">Test</div>
