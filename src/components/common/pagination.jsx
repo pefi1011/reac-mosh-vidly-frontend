@@ -15,7 +15,8 @@ const Pagination = props => {
   // the case when the page size is greater than itemCount
   // e.g. pageSize should include 10 items, but we have only 6 items
   // so if we should have only one page, we return null, i.e. nothing will be rendered
-  if (pageCount < 1) return null;
+  console.log("pageCount: ", pageCount);
+  if (pageCount <= 1) return null;
 
   // we use the lodash to generate an array thats going to look like
   // [1, 2, ....., pageCount]

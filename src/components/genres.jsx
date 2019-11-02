@@ -17,25 +17,11 @@ const Genres = props => {
   return (
     <React.Fragment>
       <ul className="list-group">
-        <li
-          key={"all"}
-          className={
-            selectedItem._id === "all"
-              ? "list-group-item active"
-              : "list-group-item"
-          }
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            onItemSelect({ _id: "all", name: "All Genres" });
-          }}
-        >
-          All Genres
-        </li>
         {genres.map(item => (
           <li
             key={item[valueProperty]}
             className={
-              selectedItem._id === item[valueProperty]
+              selectedItem === item[valueProperty]
                 ? "list-group-item active"
                 : "list-group-item"
             }

@@ -5,18 +5,20 @@ import Pagination from "./common/pagination";
 import paginate from "../utils/paginate";
 import Genre from "./genres";
 import { getGenres } from "../services/fakeGenreService";
+import { get } from "https";
 
 class Movies extends Component {
   state = {
     movies: [], // we initialize the empty array bc it takes some time to get the data from the server. If movies are undefined, we will get a runtime error
     genres: [],
     pageSize: 3,
-    currentPage: 1,
-    selectedGenre: { _id: "all", name: "All Genres" }
+    currentPage: 1
   };
 
   componentDidMount() {
-    this.setState({ movies: getMovies(), genres: getGenres() });
+    const genres = [{ name: "All Genres" }, ...getGenres()];
+
+    this.setState({ movies: getMovies(), genres });
   }
 
   handleDeleteMovie = movieId => {
@@ -60,7 +62,7 @@ class Movies extends Component {
   };
 
   handleSelectGenre = genre => {
-    this.setState({ selectedGenre: genre });
+    this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
   render() {
@@ -78,8 +80,6 @@ class Movies extends Component {
 
   renderGenres() {
     const { genres, selectedGenre } = this.state;
-
-    //genres.push({ _id: "0", name: "All Genres" });
 
     return (
       <Genre
@@ -105,9 +105,12 @@ class Movies extends Component {
     const allMovies = [...this.state.movies];
 
     // if selectedGenre is truthy (it is not undefined or empty)
-    const filteredMovies = selectedGenre
-      ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
-      : allMovies;
+    // and selectedGenre._id are both truthy
+    // then filter
+    const filteredMovies =
+      selectedGenre && selectedGenre._id
+        ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
+        : allMovies;
 
     const movies = paginate(filteredMovies, currentPage, pageSize);
 
