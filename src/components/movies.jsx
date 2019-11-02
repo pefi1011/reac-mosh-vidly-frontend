@@ -43,7 +43,9 @@ class Movies extends Component {
     // LATER WE WILL MAKE AN AJAX CALL TO PERSIST THE CHANGES
   };
 
-  handlePageChange = page => {};
+  handlePageChange = page => {
+    console.log("page clicked: ", page);
+  };
 
   render() {
     return <React.Fragment>{this.renderMovies()}</React.Fragment>;
