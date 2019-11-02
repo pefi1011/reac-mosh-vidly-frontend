@@ -5,7 +5,6 @@ import Pagination from "./common/pagination";
 import paginate from "../utils/paginate";
 import Genre from "./genres";
 import { getGenres } from "../services/fakeGenreService";
-import { get } from "https";
 
 class Movies extends Component {
   state = {

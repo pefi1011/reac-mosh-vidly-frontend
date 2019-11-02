@@ -21,7 +21,7 @@ const Genres = props => {
           <li
             key={item[valueProperty]}
             className={
-              selectedItem === item[valueProperty]
+              selectedItem === item
                 ? "list-group-item active"
                 : "list-group-item"
             }
