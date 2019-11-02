@@ -8,12 +8,16 @@ import { getGenres } from "../services/fakeGenreService";
 
 class Movies extends Component {
   state = {
-    movies: getMovies(),
-    pageSize: 2,
+    movies: [], // we initialize the empty array bc it takes some time to get the data from the server. If movies are undefined, we will get a runtime error
+    genres: [],
+    pageSize: 3,
     currentPage: 1,
-    genres: getGenres(),
     selectedGenre: { _id: "all", name: "All Genres" }
   };
+
+  componentDidMount() {
+    this.setState({ movies: getMovies(), genres: getGenres() });
+  }
 
   handleDeleteMovie = movieId => {
     console.log("Show current movies in the state");
