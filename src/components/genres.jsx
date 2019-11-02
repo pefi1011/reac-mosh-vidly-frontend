@@ -52,6 +52,14 @@ const Genres = props => {
   );
 };
 
+// SETTING THE DEFAULT VALUES FOR PROP ATTRIBUTES
+// So now, we do not have to valueProperty and textProperty when using the Genre component
+// we have to pass them only if the valueProperty and textProperty are not the standard
+Genres.defaultProps = {
+  valueProperty: "id",
+  textProperty: "name"
+};
+
 Genres.propTypes = {
   genres: PropTypes.array.isRequired,
   selectedGenre: PropTypes.object,

@@ -84,8 +84,6 @@ class Movies extends Component {
     return (
       <Genre
         genres={genres}
-        textProperty="name"
-        valueProperty="_id"
         selectedGenre={selectedGenre}
         onItemSelect={this.handleSelectGenre}
       ></Genre>
