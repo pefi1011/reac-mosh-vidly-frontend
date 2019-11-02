@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { getMovies, deleteMovie } from "../services/fakeMovieService";
 import Like from "./common/like";
+import Pagination from "./common/pagination";
 
 class Movies extends Component {
   state = {
-    movies: getMovies()
+    movies: getMovies(),
+    pageSize: 4
   };
 
   handleDeleteMovie = movieId => {
@@ -40,6 +42,8 @@ class Movies extends Component {
     // THIS WAS THE CODE FOR UPDATING THE UI
     // LATER WE WILL MAKE AN AJAX CALL TO PERSIST THE CHANGES
   };
+
+  handlePageChange = page => {};
 
   render() {
     return <React.Fragment>{this.renderMovies()}</React.Fragment>;
@@ -97,6 +101,11 @@ class Movies extends Component {
 
           <div className="row"></div>
         </div>
+        <Pagination
+          itemsCount={moviesCount}
+          pageSize={this.state.pageSize}
+          onPageChange={this.handlePageChange}
+        ></Pagination>
       </React.Fragment>
     );
   }
