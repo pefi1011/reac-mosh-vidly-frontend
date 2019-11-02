@@ -9,7 +9,7 @@ import { getGenres } from "../services/fakeGenreService";
 class Movies extends Component {
   state = {
     movies: getMovies(),
-    pageSize: 4,
+    pageSize: 2,
     currentPage: 1,
     genres: getGenres(),
     selectedGenre: { _id: "all", name: "All Genres" }
@@ -89,6 +89,8 @@ class Movies extends Component {
   renderMovies() {
     const { length: moviesCount } = this.state.movies;
     const { pageSize, currentPage } = this.state;
+    const { selectedGenre } = this.state;
+
     if (moviesCount === 0)
       return (
         <div className="">
@@ -96,7 +98,17 @@ class Movies extends Component {
         </div>
       );
 
-    const movies = paginate(this.state.movies, currentPage, pageSize);
+    const allMovies = [...this.state.movies];
+
+    let filteredMovies = allMovies;
+
+    if (selectedGenre._id !== "all") {
+      filteredMovies = allMovies.filter(
+        movie => movie.genre._id === selectedGenre._id
+      );
+    }
+
+    const movies = paginate(filteredMovies, currentPage, pageSize);
 
     return (
       <React.Fragment>
@@ -141,7 +153,7 @@ class Movies extends Component {
           <div className="row"></div>
         </div>
         <Pagination
-          itemsCount={moviesCount}
+          itemsCount={filteredMovies.length}
           pageSize={pageSize}
           onPageChange={this.handlePageChange}
           currentPage={currentPage}
