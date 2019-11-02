@@ -3,12 +3,16 @@ import { getMovies, deleteMovie } from "../services/fakeMovieService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
 import paginate from "../utils/paginate";
+import Genre from "./genres";
+import { getGenres } from "../services/fakeGenreService";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
     pageSize: 4,
-    currentPage: 1
+    currentPage: 1,
+    genres: getGenres(),
+    selectedGenre: { _id: "all", name: "All Genres" }
   };
 
   handleDeleteMovie = movieId => {
@@ -51,8 +55,35 @@ class Movies extends Component {
     this.setState({ currentPage: page });
   };
 
+  handleSelectGenre = genre => {
+    this.setState({ selectedGenre: genre });
+  };
+
   render() {
-    return <React.Fragment>{this.renderMovies()}</React.Fragment>;
+    return (
+      <React.Fragment>
+        <div className="container">
+          <div className="row justify-content-md-center">
+            <div className="col-2">{this.renderGenres()}</div>
+            <div className="col-10"> {this.renderMovies()}</div>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+
+  renderGenres() {
+    const { genres, selectedGenre } = this.state;
+
+    //genres.push({ _id: "0", name: "All Genres" });
+
+    return (
+      <Genre
+        genres={genres}
+        selectedGenre={selectedGenre}
+        onSelect={this.handleSelectGenre}
+      ></Genre>
+    );
   }
 
   renderMovies() {
@@ -110,7 +141,7 @@ class Movies extends Component {
           <div className="row"></div>
         </div>
         <Pagination
-          // itemsCount={moviesCount}
+          itemsCount={moviesCount}
           pageSize={pageSize}
           onPageChange={this.handlePageChange}
           currentPage={currentPage}
