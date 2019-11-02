@@ -104,13 +104,10 @@ class Movies extends Component {
 
     const allMovies = [...this.state.movies];
 
-    let filteredMovies = allMovies;
-
-    if (selectedGenre._id !== "all") {
-      filteredMovies = allMovies.filter(
-        movie => movie.genre._id === selectedGenre._id
-      );
-    }
+    // if selectedGenre is truthy (it is not undefined or empty)
+    const filteredMovies = selectedGenre
+      ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
+      : allMovies;
 
     const movies = paginate(filteredMovies, currentPage, pageSize);
 
