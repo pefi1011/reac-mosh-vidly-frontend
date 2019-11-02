@@ -7,7 +7,8 @@ import _ from "lodash"; // LODASH is the optimized library of the popular "under
 // The good way do make decision is to use the component before implementing it
 
 const Pagination = props => {
-  const { pageSize, itemsCount, onPageChange } = props;
+  const { pageSize, itemsCount, onPageChange, currentPage } = props;
+  console.log("currentPage: ", currentPage);
 
   const pageCount = itemsCount / pageSize;
 
@@ -24,7 +25,7 @@ const Pagination = props => {
     <nav>
       <ul className="pagination">
         {pages.map(page => (
-          <li key={page} className="page-item">
+          <li key={page} className="page-item active">
             <a
               className="page-link"
               onClick={() => {
