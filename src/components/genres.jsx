@@ -4,15 +4,15 @@ import PropTypes from "prop-types";
 const Genres = props => {
   console.log("props: ", props);
   const {
-    genres: allGenres,
-    selectedGenre,
+    genres: allItems,
+    selectedItem,
     onItemSelect,
     textProperty,
     valueProperty
   } = props;
-  console.log("selectedGenre: ", selectedGenre);
+  console.log("selectedGenre: ", selectedItem);
 
-  const genres = allGenres;
+  const genres = allItems;
 
   return (
     <React.Fragment>
@@ -20,7 +20,7 @@ const Genres = props => {
         <li
           key={"all"}
           className={
-            selectedGenre._id === "all"
+            selectedItem._id === "all"
               ? "list-group-item active"
               : "list-group-item"
           }
@@ -31,20 +31,20 @@ const Genres = props => {
         >
           All Genres
         </li>
-        {genres.map(genre => (
+        {genres.map(item => (
           <li
-            key={genre[valueProperty]}
+            key={item[valueProperty]}
             className={
-              selectedGenre._id === genre[valueProperty]
+              selectedItem._id === item[valueProperty]
                 ? "list-group-item active"
                 : "list-group-item"
             }
             style={{ cursor: "pointer" }}
             onClick={() => {
-              onItemSelect(genre);
+              onItemSelect(item);
             }}
           >
-            {genre[textProperty]}
+            {item[textProperty]}
           </li>
         ))}
       </ul>
@@ -56,13 +56,13 @@ const Genres = props => {
 // So now, we do not have to valueProperty and textProperty when using the Genre component
 // we have to pass them only if the valueProperty and textProperty are not the standard
 Genres.defaultProps = {
-  valueProperty: "id",
+  valueProperty: "_id",
   textProperty: "name"
 };
 
 Genres.propTypes = {
   genres: PropTypes.array.isRequired,
-  selectedGenre: PropTypes.object,
+  selectedItem: PropTypes.object,
   valueProperty: PropTypes.string.isRequired,
   textProperty: PropTypes.string.isRequired,
   onItemSelect: PropTypes.func.isRequired
