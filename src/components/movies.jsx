@@ -110,7 +110,7 @@ class Movies extends Component {
           <div className="row"></div>
         </div>
         <Pagination
-          itemsCount={moviesCount}
+          // itemsCount={moviesCount}
           pageSize={pageSize}
           onPageChange={this.handlePageChange}
           currentPage={currentPage}

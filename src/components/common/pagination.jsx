@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash"; // LODASH is the optimized library of the popular "underscore" library
-
+import PropTypes from "prop-types";
 // Decide on the interface of the component
 // What props does it take?
 // What events does it raise?
@@ -42,6 +42,13 @@ const Pagination = props => {
       </ul>
     </nav>
   );
+};
+
+Pagination.propTypes = {
+  pageSize: PropTypes.number.isRequired,
+  itemsCount: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired
 };
 
 export default Pagination;
