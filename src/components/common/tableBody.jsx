@@ -15,6 +15,10 @@ class TableBody extends Component {
     return _.get(item, column.path);
   };
 
+  createKey = (item, column) => {
+    return item._id + (column.path || column.key);
+  };
+
   render() {
     // CONVENTION !!!
     // AT THE TOP OF THE RENDER() METHOD WE DO
@@ -37,7 +41,7 @@ class TableBody extends Component {
 
               // we will use the logical OR operator
               // if column.path is available, use it, otherwise use column.key
-              <td key={item._id + (column.path || column.key)} className="">
+              <td key={this.createKey(item, column)} className="">
                 {this.renderCell(item, column)}
               </td>
             ))}
