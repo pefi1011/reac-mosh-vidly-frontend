@@ -15,12 +15,22 @@ class MoviesTable extends Component {
     { path: "dailyRentalRate", label: "Rate" },
     {
       key: "like",
-      content: (<Like liked={movie.liked} onClick={() => onLike(movie)}></Like>)
+      content: movie => (
+        <Like
+          liked={movie.liked}
+          onClick={() => this.props.onLike(movie)}
+        ></Like>
+      ) // Instead of setting it to a React Element, we set it to  a function with a parameter movie
     },
-    { key: "delete", content: (
-      <button onClick={()=> onDelete(movie)} className="btn btn-danger btn-sm"></button>
-    )
-  <} // we added the "key" property because we are using it in the map function within the TableHeader component
+    {
+      key: "delete",
+      content: movie => (
+        <button
+          onClick={() => this.props.onDelete(movie)}
+          className="btn btn-danger btn-sm"
+        ></button>
+      )
+    } // we added the "key" property because we are using it in the map function within the TableHeader component
   ];
 
   render() {
