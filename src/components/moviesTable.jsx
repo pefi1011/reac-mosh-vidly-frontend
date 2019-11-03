@@ -16,10 +16,7 @@ class MoviesTable extends Component {
     {
       key: "like",
       content: movie => (
-        <Like
-          liked={movie.liked}
-          onClick={() => this.props.onLike(movie)}
-        ></Like>
+        <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
       ) // Instead of setting it to a React Element, we set it to  a function with a parameter movie
     },
     {
@@ -28,14 +25,15 @@ class MoviesTable extends Component {
         <button
           onClick={() => this.props.onDelete(movie)}
           className="btn btn-danger btn-sm"
-        ></button>
+        >
+          Delete
+        </button>
       )
     } // we added the "key" property because we are using it in the map function within the TableHeader component
   ];
 
   render() {
-    // we changed "props" to "this.props" because the props is not a parameter like in SFC
-    const { movies, sortColumn, onDelete, onLike, onSort } = this.props;
+    const { movies, sortColumn, onSort } = this.props;
 
     return (
       <React.Fragment>

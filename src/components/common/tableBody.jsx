@@ -1,9 +1,20 @@
 import React, { Component } from "react";
-import Like from "./like";
 import _ from "lodash";
 
 class TableBody extends Component {
-  state = {};
+  // CONVENTION
+  // HAVE RENDER() METHOD AS THE LAST METHOD
+
+  renderCell = (item, column) => {
+    // if column.content exists, i.e. if its truthy
+    // we call that function (content is a function)
+    // as an argument, we pass the item (which is the movie in our case)
+    if (column.content) return column.content(item);
+
+    // otherwise we render the property of the current item
+    return _.get(item, column.path);
+  };
+
   render() {
     // CONVENTION !!!
     // AT THE TOP OF THE RENDER() METHOD WE DO
@@ -25,7 +36,7 @@ class TableBody extends Component {
               // <td className="">{item["genre.name"]}</td>
 
               // SO WE USE LODASH AGAIN
-              <td className="">{_.get(item, column.path)}</td>
+              <td className="">{this.renderCell(item, column)}</td>
             ))}
           </tr>
         ))}
