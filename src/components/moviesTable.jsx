@@ -12,7 +12,7 @@ class MoviesTable extends Component {
       key: "like",
       content: movie => (
         <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
-      ) // Instead of setting it to a React Element, we set it to  a function with a parameter movie
+      )
     },
     {
       key: "delete",
@@ -24,7 +24,7 @@ class MoviesTable extends Component {
           Delete
         </button>
       )
-    } // we added the "key" property because we are using it in the map function within the TableHeader component
+    }
   ];
 
   render() {
