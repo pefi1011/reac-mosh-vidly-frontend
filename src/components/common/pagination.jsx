@@ -6,10 +6,7 @@ import PropTypes from "prop-types";
 // What events does it raise?
 // The good way do make decision is to use the component before implementing it
 
-const Pagination = props => {
-  const { pageSize, itemsCount, onPageChange, currentPage } = props;
-  console.log("currentPage: ", currentPage);
-
+const Pagination = ({ pageSize, itemsCount, onPageChange, currentPage }) => {
   const pageCount = itemsCount / pageSize;
 
   // the case when the page size is greater than itemCount
