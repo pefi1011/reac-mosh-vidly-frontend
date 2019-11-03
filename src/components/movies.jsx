@@ -5,13 +5,15 @@ import paginate from "../utils/paginate";
 import Genre from "./genres";
 import { getGenres } from "../services/fakeGenreService";
 import MoviesTable from "./moviesTable";
+import _ from "lodash";
 
 class Movies extends Component {
   state = {
     movies: [], // we initialize the empty array bc it takes some time to get the data from the server. If movies are undefined, we will get a runtime error
     genres: [],
     pageSize: 3,
-    currentPage: 1
+    currentPage: 1,
+    sortColumn: { path: "title", order: "asc" }
   };
 
   componentDidMount() {
@@ -66,6 +68,8 @@ class Movies extends Component {
 
   handleSort = path => {
     console.log("path: ", path);
+
+    this.setState({ sortColumn: { path: path, order: "asc" } });
   };
 
   render() {
@@ -91,8 +95,7 @@ class Movies extends Component {
 
   renderMovies() {
     const { length: moviesCount } = this.state.movies;
-    const { pageSize, currentPage } = this.state;
-    const { selectedGenre } = this.state;
+    const { pageSize, currentPage, sortColumn, selectedGenre } = this.state;
 
     if (moviesCount === 0)
       return (
@@ -111,7 +114,13 @@ class Movies extends Component {
         ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
         : allMovies;
 
-    const movies = paginate(filteredMovies, currentPage, pageSize);
+    const sortedMovies = _.orderBy(
+      filteredMovies,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
+
+    const movies = paginate(sortedMovies, currentPage, pageSize);
 
     return (
       <React.Fragment>
