@@ -1,34 +1,34 @@
 import React, { Component } from "react";
 import Like from "./common/like";
-
+import TableHeader from "./common/tableHeader";
 // We converted the SFC to the CC because we added a method for determining the sort order
 // We promoted MovieTable component from SFC to CC
 class MoviesTable extends Component {
-  raiseSort = path => {
-    // clone the object using the spread operator
-    // Because we do not have state in our component
-    // we changed from "this.state.sortColumn" to "this.props.sortColumn"
-    const sortColumn = { ...this.props.sortColumn };
-
-    if (sortColumn.path === path)
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-
-    // WE ARE RAISING THE onSort EVENT!!
-    this.props.onSort(sortColumn);
-  };
+  // Columns are not the part of the state
+  // because they are not going to change
+  // throghout the lifecycle of this component (MoviesTable)
+  columns = [
+    { path: "title", label: "Title" },
+    { path: "genre.name", label: "Genre" },
+    { path: "numberInStock", label: "Stock" },
+    { path: "dailyRentalRate", label: "Rate" },
+    {}, // we have empty objects for the like and delete columns. They do not have label and path for sorting, so we just have empty objects
+    {}
+  ];
 
   render() {
     // we changed "props" to "this.props" because the props is not a parameter like in SFC
-    const { movies, onDelete, onLike } = this.props;
+    const { movies, sortColumn, onDelete, onLike, onSort } = this.props;
 
     return (
       <React.Fragment>
         <hr></hr>
         <table className="table">
+          <TableHeader
+            columns={this.columns}
+            sortColumn={sortColumn}
+            onSort={onSort}
+          ></TableHeader>
           <thead>
             <tr>
               {/*  
