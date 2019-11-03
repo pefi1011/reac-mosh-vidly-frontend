@@ -30,7 +30,7 @@ class MoviesTable extends Component {
             sortColumn={sortColumn}
             onSort={onSort}
           ></TableHeader>
-          <TableBody data={movies}></TableBody>
+          <TableBody data={movies} columns={this.columns}></TableBody>
         </table>
       </React.Fragment>
     );
