@@ -1,7 +1,6 @@
 import React from "react";
 
 import Like from "./common/like";
-import Pagination from "./common/pagination";
 
 const MoviesTable = props => {
   const { movies, onDelete, onLike, onSort } = props;
@@ -12,10 +11,18 @@ const MoviesTable = props => {
       <table className="table">
         <thead>
           <tr>
-            <th className="col">Title</th>
-            <th className="col">Genre</th>
-            <th className="col">Stock</th>
-            <th className="col">Rate</th>
+            <th onClick={() => onSort("title")} className="col">
+              Title
+            </th>
+            <th onClick={() => onSort("genre.name")} className="col">
+              Genre
+            </th>
+            <th onClick={() => onSort("numberInStock")} className="col">
+              Stock
+            </th>
+            <th onClick={() => onSort("dailyRentalRate")} className="col">
+              Rate
+            </th>
             <th className="col"></th>
             <th className="col"></th>
           </tr>
