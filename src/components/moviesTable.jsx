@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import Like from "./common/like";
-import TableHeader from "./common/tableHeader";
-import TableBody from "./common/tableBody";
-// We converted the SFC to the CC because we added a method for determining the sort order
-// We promoted MovieTable component from SFC to CC
+import Table from "./common/table";
+
 class MoviesTable extends Component {
-  // Columns are not the part of the state
-  // because they are not going to change
-  // throghout the lifecycle of this component (MoviesTable)
   columns = [
     { path: "title", label: "Title" },
     { path: "genre.name", label: "Genre" },
@@ -36,17 +31,12 @@ class MoviesTable extends Component {
     const { movies, sortColumn, onSort } = this.props;
 
     return (
-      <React.Fragment>
-        <hr></hr>
-        <table className="table">
-          <TableHeader
-            columns={this.columns}
-            sortColumn={sortColumn}
-            onSort={onSort}
-          ></TableHeader>
-          <TableBody data={movies} columns={this.columns}></TableBody>
-        </table>
-      </React.Fragment>
+      <Table
+        columns={this.columns}
+        data={movies}
+        sortColumn={sortColumn}
+        onSort={onSort}
+      ></Table>
     );
   }
 }
