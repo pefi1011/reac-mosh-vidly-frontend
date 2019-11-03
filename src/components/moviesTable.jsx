@@ -13,8 +13,14 @@ class MoviesTable extends Component {
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Rate" },
-    { key: "like" }, // we have empty objects for the like and delete columns. They do not have label and path for sorting, so we just have empty objects
-    { key: "delete" } // we added the "key" property because we are using it in the map function within the TableHeader component
+    {
+      key: "like",
+      content: (<Like liked={movie.liked} onClick={() => onLike(movie)}></Like>)
+    },
+    { key: "delete", content: (
+      <button onClick={()=> onDelete(movie)} className="btn btn-danger btn-sm"></button>
+    )
+  <} // we added the "key" property because we are using it in the map function within the TableHeader component
   ];
 
   render() {
