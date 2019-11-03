@@ -38,6 +38,7 @@ class TableHeader extends Component {
         <tr>
           {this.props.columns.map(column => (
             <th
+              className="clickable"
               // using the logical OR operator
               // if column.path exist, we are going to use it
               // otherwise we will use column.key
