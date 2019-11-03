@@ -67,9 +67,17 @@ class Movies extends Component {
   };
 
   handleSort = path => {
-    console.log("path: ", path);
+    // clone the object using the spread operator
+    const sortColumn = { ...this.state.sortColumn };
 
-    this.setState({ sortColumn: { path: path, order: "asc" } });
+    if (sortColumn.path === path)
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    else {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+
+    this.setState({ sortColumn });
   };
 
   render() {
