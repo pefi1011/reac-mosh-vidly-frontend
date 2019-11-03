@@ -71,6 +71,8 @@ class Movies extends Component {
   };
 
   getPagedData = () => {
+    const { pageSize, currentPage, sortColumn, selectedGenre } = this.state;
+
     const allMovies = [...this.state.movies];
 
     // if selectedGenre is truthy (it is not undefined or empty)
@@ -115,7 +117,7 @@ class Movies extends Component {
 
   renderMovies() {
     const { length: moviesCount } = this.state.movies;
-    const { pageSize, currentPage, sortColumn, selectedGenre } = this.state;
+    const { pageSize, currentPage, sortColumn } = this.state;
 
     if (moviesCount === 0) return <p>There are no movies in the database!</p>;
 
@@ -123,7 +125,7 @@ class Movies extends Component {
 
     return (
       <React.Fragment>
-        <h4>Showing {totalCount.length} movies in the database</h4>;
+        <h4>Showing {totalCount} movies in the database</h4>;
         <MoviesTable
           movies={movies}
           onLike={this.handleLike}
@@ -132,7 +134,7 @@ class Movies extends Component {
           sortColumn={sortColumn}
         ></MoviesTable>
         <Pagination
-          itemsCount={totalCount.length}
+          itemsCount={totalCount}
           pageSize={pageSize}
           onPageChange={this.handlePageChange}
           currentPage={currentPage}
