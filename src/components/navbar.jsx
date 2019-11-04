@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -8,9 +8,9 @@ const NavBar = () => {
         className="navbar navbar-expand-lg navbar-light bg-light"
         style={{ marginBottom: "20px", marginTop: "0px" }}
       >
-        <NavLink className="nav-link" to="/">
+        <Link className="nav-link" to="/">
           Vidly <span className="sr-only">(current)</span>
-        </NavLink>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -26,7 +26,7 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item active">
-              <NavLink className="nav-link" to="/movies">
+              <NavLink className="nav-item nav-link" to="/movies">
                 Movies <span className="sr-only">(current)</span>
               </NavLink>
             </li>

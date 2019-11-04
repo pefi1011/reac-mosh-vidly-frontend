@@ -17,8 +17,8 @@ function App() {
       <main className="container">
         <Switch>
           <Redirect from="/home" to="/movies"></Redirect>
-          <Route path="/movies" exact component={Movies}></Route>
           <Route path="/movies/:movieId" component={MovieForm}></Route>
+          <Route path="/movies" exact component={Movies}></Route>
           <Route path="/customers" component={Customers}></Route>
           <Route path="/rentals" component={Rentals}></Route>
 
