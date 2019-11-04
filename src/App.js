@@ -15,11 +15,14 @@ function App() {
       <NavBar></NavBar>
       <main className="container">
         <Switch>
-          <Route path="/home" exact component={Movies}></Route>
-          <Route path="/customers" exact component={Customers}></Route>
-          <Route path="/rentals" exact component={Rentals}></Route>
+          <Redirect from="/home" to="/movies"></Redirect>
+          <Route path="/movies" component={Movies}></Route>
+          <Route path="/customers" component={Customers}></Route>
+          <Route path="/rentals" component={Rentals}></Route>
+
           <Route path="/not-found" component={NotFound}></Route>
           <Route path="/" exact component={Movies}></Route>
+
           <Redirect to="/not-found"></Redirect>
         </Switch>
         <></>
