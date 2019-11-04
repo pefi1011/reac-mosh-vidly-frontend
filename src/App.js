@@ -8,6 +8,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import NotFound from "./components/common/notfound";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
+import MovieForm from "./components/movieForm";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <main className="container">
         <Switch>
           <Redirect from="/home" to="/movies"></Redirect>
-          <Route path="/movies" component={Movies}></Route>
+          <Route path="/movies" exact component={Movies}></Route>
+          <Route path="/movies/:movieId" component={MovieForm}></Route>
           <Route path="/customers" component={Customers}></Route>
           <Route path="/rentals" component={Rentals}></Route>
 
