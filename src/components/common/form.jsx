@@ -77,10 +77,12 @@ class Form extends Component {
     );
   }
 
-  renderInput(name, label) {
+  // default value of type is "text"
+  renderInput(name, label, type = "text") {
     const { data, errors } = this.state;
     return (
       <Input
+        type={type}
         name={name}
         value={data[name]}
         label={label}
