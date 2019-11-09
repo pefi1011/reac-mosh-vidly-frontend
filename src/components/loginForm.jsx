@@ -46,33 +46,20 @@ class LoginForm extends Component {
         <h1>Login</h1>
 
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            {/** Convert the input component to a controlled component. Controlled component do not have their own state,
-            they get all their data via props and they notify changes on the data by raising events 
-            add "value" attribute and onChange event
-            */}
-            <input
-              value={account.username}
-              onChange={this.handleChange}
-              autoFocus
-              name="username"
-              id="username"
-              type="text"
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              value={account.password}
-              onChange={this.handleChange}
-              name="password"
-              id="password"
-              type="text"
-              className="form-control"
-            />
-          </div>
+          <Input
+            name="username"
+            value={account.username}
+            label="Username"
+            onChange={this.handleChange}
+          />
+
+          <Input
+            name="password"
+            value={account.password}
+            label="Password"
+            onChange={this.handleChange}
+          />
+
           <button className="btn btn-primary">Login</button>
         </form>
       </div>
