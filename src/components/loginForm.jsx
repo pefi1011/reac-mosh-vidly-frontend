@@ -32,6 +32,9 @@ class LoginForm extends Component {
   };
 
   render() {
+    // In our render method we do the object destructuring
+    const { account } = this.state;
+
     return (
       <div>
         <h1>Login</h1>
@@ -44,7 +47,7 @@ class LoginForm extends Component {
             add "value" attribute and onChange event
             */}
             <input
-              value={this.state.account.username}
+              value={account.username}
               onChange={this.handleChange}
               autoFocus
               name="username"
@@ -56,7 +59,7 @@ class LoginForm extends Component {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
-              value={this.state.account.password}
+              value={account.password}
               onChange={this.handleChange}
               name="password"
               id="password"
