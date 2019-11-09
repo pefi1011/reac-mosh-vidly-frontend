@@ -94,8 +94,13 @@ class Movies extends Component {
     return { totalCount: filteredData.length, data: movies };
   };
 
+  handleClick = history => {
+    history.push("/movies/new");
+  };
+
   render() {
     const { genres, selectedGenre } = this.state;
+    const { history } = this.props;
 
     return (
       <React.Fragment>
@@ -108,7 +113,17 @@ class Movies extends Component {
                 onItemSelect={this.handleSelectGenre}
               ></Genre>
             </div>
-            <div className="col"> {this.renderMovies()}</div>
+            <div className="col">
+              <div className="row mb-4">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => this.handleClick(history)}
+                >
+                  {"New Movie"}
+                </button>
+              </div>
+              <div className="row"> {this.renderMovies()}</div>
+            </div>
           </div>
         </div>
       </React.Fragment>
