@@ -12,8 +12,12 @@ class LoginForm extends Component {
   // Define JOI SCHEMA
   // it's not part of the state bc it does not have to change
   schema = {
-    username: Joi.string().required(),
-    password: Joi.string().required()
+    username: Joi.string()
+      .required()
+      .label("Username"),
+    password: Joi.string()
+      .required()
+      .label("Password")
   };
 
   // 2. Creating a ref object
