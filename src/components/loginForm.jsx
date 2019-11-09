@@ -20,6 +20,11 @@ class LoginForm extends Component {
   username = React.createRef();
 
   validate = () => {
+    const result = Joi.validate(this.state.account, this.schema, {
+      abortEarly: false
+    });
+
+    console.log("result: ", result);
     const errors = {};
 
     const { account } = this.state;
