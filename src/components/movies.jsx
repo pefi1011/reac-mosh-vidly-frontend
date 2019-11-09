@@ -5,7 +5,9 @@ import paginate from "../utils/paginate";
 import Genre from "./genres";
 import { getGenres } from "../services/fakeGenreService";
 import MoviesTable from "./moviesTable";
+import Input from "./common/input";
 import _ from "lodash";
+import SearchBox from "./common/searchBox";
 
 class Movies extends Component {
   state = {
@@ -13,6 +15,8 @@ class Movies extends Component {
     genres: [],
     pageSize: 3,
     currentPage: 1,
+    searchQuery: "",
+    selectedGenre: null,
     sortColumn: { path: "title", order: "asc" }
   };
 
@@ -71,31 +75,58 @@ class Movies extends Component {
   };
 
   getPagedData = () => {
-    const { pageSize, currentPage, sortColumn, selectedGenre } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      sortColumn,
+      selectedGenre,
+      searchQuery,
+      movies: allMovies
+    } = this.state;
 
-    const allMovies = [...this.state.movies];
+    let filtered = allMovies;
 
-    // if selectedGenre is truthy (it is not undefined or empty)
-    // and selectedGenre._id are both truthy
-    // then filter
-    const filteredData =
-      selectedGenre && selectedGenre._id
-        ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
-        : allMovies;
+    if (searchQuery)
+      filtered = allMovies.filter(movie =>
+        movie.title.toUpperCase().startsWith(searchQuery.toUpperCase())
+      );
+    else if (selectedGenre && selectedGenre._id)
+      filtered = allMovies.filter(
+        movie => movie.genre._id === selectedGenre._id
+      );
 
     const sortedData = _.orderBy(
-      filteredData,
+      filtered,
       [sortColumn.path],
       [sortColumn.order]
     );
 
     const movies = paginate(sortedData, currentPage, pageSize);
 
-    return { totalCount: filteredData.length, data: movies };
+    return { totalCount: filtered.length, data: movies };
   };
 
   handleClick = history => {
     history.push("/movies/new");
+  };
+
+  handleSearch2 = query => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+  };
+
+  handleSearch = ({ currentTarget: input }) => {
+    const searchValue = input.value;
+    console.log("search for: ", searchValue);
+
+    const allMovies = [...this.state.movies];
+    console.log("allMovies: ", allMovies);
+
+    const searchResult = allMovies.filter(movie =>
+      movie.title.toUpperCase().includes(searchValue)
+    );
+
+    console.log("filteredMovies: ", searchResult);
+    // this.setState({ totalCount: searchResult.length, data: searchResult });
   };
 
   render() {
@@ -132,7 +163,7 @@ class Movies extends Component {
 
   renderMovies() {
     const { length: moviesCount } = this.state.movies;
-    const { pageSize, currentPage, sortColumn } = this.state;
+    const { pageSize, currentPage, sortColumn, searchQuery } = this.state;
 
     if (moviesCount === 0) return <p>There are no movies in the database!</p>;
 
@@ -140,7 +171,11 @@ class Movies extends Component {
 
     return (
       <React.Fragment>
-        <h4>Showing {totalCount} movies in the database</h4>;
+        <h4>Showing {totalCount} movies in the database</h4>
+        <SearchBox
+          value={searchQuery}
+          onChange={this.handleSearch2}
+        ></SearchBox>
         <MoviesTable
           movies={movies}
           onLike={this.handleLike}
