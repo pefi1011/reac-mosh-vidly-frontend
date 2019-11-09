@@ -47,8 +47,17 @@ class MovieForm extends Form {
     return (
       <React.Fragment>
         <h2>Movie Form {"movieId"}</h2>
+
+        <form onSubmit={this.handleSubmit}>
+          {this.renderInput("title", "Title")}
+          {this.renderInput("genre", "Genre")}
+          {this.renderInput("numberInStock", "Number in Stock")}
+          {this.renderInput("dailyRentalRate", "Rate")}
+        </form>
+
         <button
           type="button"
+          disabled={this.validate()}
           className="btn btn-primary"
           onClick={() => this.doSubmit(history)}
         >
