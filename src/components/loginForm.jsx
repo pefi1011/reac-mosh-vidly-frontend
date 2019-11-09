@@ -53,12 +53,7 @@ class LoginForm extends Form {
             error={errors.password}
           />
 
-          {/** this.validate() returns null or an error object null is considers as falsy, 
-          so the disabled will be set to false. 
-          An object is considered to be truthy, so disabled will be set to true */}
-          <button disabled={this.validate()} className="btn btn-primary">
-            Login
-          </button>
+          {this.renderButton("Login")}
         </form>
       </div>
     );
