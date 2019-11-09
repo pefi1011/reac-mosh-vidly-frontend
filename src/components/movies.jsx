@@ -110,23 +110,8 @@ class Movies extends Component {
     history.push("/movies/new");
   };
 
-  handleSearch2 = query => {
+  handleSearch = query => {
     this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
-  };
-
-  handleSearch = ({ currentTarget: input }) => {
-    const searchValue = input.value;
-    console.log("search for: ", searchValue);
-
-    const allMovies = [...this.state.movies];
-    console.log("allMovies: ", allMovies);
-
-    const searchResult = allMovies.filter(movie =>
-      movie.title.toUpperCase().includes(searchValue)
-    );
-
-    console.log("filteredMovies: ", searchResult);
-    // this.setState({ totalCount: searchResult.length, data: searchResult });
   };
 
   render() {
