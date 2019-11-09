@@ -5,7 +5,7 @@ import Input from "./common/input";
 class LoginForm extends Component {
   state = {
     account: { username: "", password: "" },
-    erros: {}
+    errors: {}
   };
   // 2. Creating a ref object
   username = React.createRef();
@@ -28,13 +28,12 @@ class LoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const erros = this.validate();
-    console.log("erros: ", erros);
-    // we change the state and let react rerender the view and show errors
-    this.setState({ erros });
+    const errors = this.validate();
+    // If errors is truthy (it exists), then we pass errors to the state, otherwise we pass an empty object
+    this.setState({ errors: errors || {} });
 
     // if there are any errors, we return, i.e. we abort the form submition. We do not call the server
-    if (erros) return;
+    if (errors) return;
 
     console.log("Form submitted");
     // Save the changes
@@ -52,7 +51,7 @@ class LoginForm extends Component {
 
   render() {
     // In our render method we do the object destructuring
-    const { account } = this.state;
+    const { account, errors } = this.state;
 
     return (
       <div>
@@ -64,6 +63,7 @@ class LoginForm extends Component {
             value={account.username}
             label="Username"
             onChange={this.handleChange}
+            error={errors.username}
           />
 
           <Input
@@ -71,6 +71,7 @@ class LoginForm extends Component {
             value={account.password}
             label="Password"
             onChange={this.handleChange}
+            error={errors.password}
           />
 
           <button className="btn btn-primary">Login</button>
