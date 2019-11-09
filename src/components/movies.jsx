@@ -67,7 +67,7 @@ class Movies extends Component {
   };
 
   handleSelectGenre = genre => {
-    this.setState({ selectedGenre: genre, currentPage: 1 });
+    this.setState({ selectedGenre: genre, searchQuery: "", currentPage: 1 });
   };
 
   handleSort = sortColumn => {
@@ -157,10 +157,7 @@ class Movies extends Component {
     return (
       <React.Fragment>
         <h4>Showing {totalCount} movies in the database</h4>
-        <SearchBox
-          value={searchQuery}
-          onChange={this.handleSearch2}
-        ></SearchBox>
+        <SearchBox value={searchQuery} onChange={this.handleSearch}></SearchBox>
         <MoviesTable
           movies={movies}
           onLike={this.handleLike}
