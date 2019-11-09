@@ -42,13 +42,15 @@ class MovieForm extends Form {
   render() {
     // In our render method we do the object destructuring
 
+    const { history } = this.props;
+
     return (
       <React.Fragment>
         <h2>Movie Form {"movieId"}</h2>
         <button
           type="button"
           className="btn btn-primary"
-          onClick={() => this.handleSaveButton("history")}
+          onClick={() => this.doSubmit(history)}
         >
           Save
         </button>
