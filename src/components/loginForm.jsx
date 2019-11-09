@@ -40,9 +40,13 @@ class LoginForm extends Component {
     // Redirect the user
   };
 
-  validateProperty = input => {
-    if (input.name === "username") {
-      if (input.value.trim() === "") return "Username is required.";
+  validateProperty = ({ value, name }) => {
+    if (name === "username") {
+      if (value.trim() === "") return "Username is required.";
+      // other rules
+    }
+    if (name === "password") {
+      if (value.trim() === "") return "Password is required.";
       // other rules
     }
   };
