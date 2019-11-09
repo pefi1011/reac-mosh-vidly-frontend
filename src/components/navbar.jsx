@@ -40,6 +40,11 @@ const NavBar = () => {
                 Rentals <span className="sr-only">(current)</span>
               </NavLink>
             </li>
+            <li className="nav-item active">
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
+            </li>
           </ul>
         </div>
       </nav>
