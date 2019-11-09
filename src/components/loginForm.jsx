@@ -23,8 +23,10 @@ class LoginForm extends Component {
     // we use the spread opperator to clone the account object from the state
     const account = { ...this.state.account };
 
-    // even.currentTarget returns the element and .value returns the value in the field
-    account.username = e.currentTarget.value;
+    // we do not want to have a handler for passowrd property, we want to set
+    // a property of the object dynamically -> work with bracket notation instesad of . notation
+    // We have our input fields a name property and based on it we access it
+    account[e.currentTarget.name] = e.currentTarget.value;
 
     this.setState({ account });
   };
@@ -45,6 +47,7 @@ class LoginForm extends Component {
               value={this.state.account.username}
               onChange={this.handleChange}
               autoFocus
+              name="username"
               id="username"
               type="text"
               className="form-control"
@@ -52,7 +55,14 @@ class LoginForm extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input id="password" type="text" className="form-control" />
+            <input
+              value={this.state.account.password}
+              onChange={this.handleChange}
+              name="password"
+              id="password"
+              type="text"
+              className="form-control"
+            />
           </div>
           <button className="btn btn-primary">Login</button>
         </form>
