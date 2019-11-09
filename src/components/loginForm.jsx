@@ -20,7 +20,7 @@ class LoginForm extends Component {
       errors.username = "Username is required.";
 
     if (account.password.trim() === "")
-      errors.username = "Password is required.";
+      errors.password = "Password is required.";
 
     return Object.keys(errors).length === 0 ? null : errors;
   };
@@ -29,15 +29,12 @@ class LoginForm extends Component {
     e.preventDefault();
 
     const erros = this.validate();
+    console.log("erros: ", erros);
     // we change the state and let react rerender the view and show errors
     this.setState({ erros });
 
     // if there are any errors, we return, i.e. we abort the form submition. We do not call the server
     if (erros) return;
-
-    const username = this.username.current.value;
-
-    console.log("username: ", username);
 
     console.log("Form submitted");
     // Save the changes
