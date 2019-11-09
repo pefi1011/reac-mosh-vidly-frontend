@@ -11,6 +11,12 @@ class LoginForm extends Component {
   username = React.createRef();
 
   validate = () => {
+    const errors = {};
+
+    // for each input field we write validation logic
+    if (this.state.account.username.trim() === "")
+      errors.username = "Username is required.";
+
     return { username: "Username is requried" };
   };
 
