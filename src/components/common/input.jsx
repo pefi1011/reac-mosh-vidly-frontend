@@ -1,6 +1,7 @@
 import React from "react";
 
-const Input = ({ type, name, label, value, error, onChange }) => {
+// USING THE REST OPERATOR TO GET THE OTHER PROPERTIES OF THE PROPS OBJECT
+const Input = ({ name, label, error, ...rest }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -8,15 +9,15 @@ const Input = ({ type, name, label, value, error, onChange }) => {
   they get all their data via props and they notify changes on the data by raising events 
   add "value" attribute and onChange event
   */}
-      <input
-        value={value}
-        onChange={onChange}
-        autoFocus
-        name={name}
-        id={name}
-        type={type}
-        className="form-control"
-      />
+
+      {/** instead of having 
+    value={value}
+    onChange={onChange}
+    type={type}
+    
+    we will apply the spread operator to the rest
+    */}
+      <input {...rest} name={name} id={name} className="form-control" />
       {/** WE RENDER THE DIV ELEMENT ONLY IF THERE ARE ERRORS. IF ERROR DOES NOT EXIST (ITS FALSY), THEN THE EXPRESSION IS FALSE */}
       {error && <div className="alert alert-danger">{error}</div>}
     </div>
