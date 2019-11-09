@@ -24,6 +24,16 @@ class LoginForm extends Component {
       abortEarly: false
     });
 
+    // no validation error founds
+    if (!result.error) return null;
+
+    const errors = {};
+
+    // mapping an array into object
+    for (let item of result.error.details) errors[item.path[0]] = item.message;
+
+    return errors;
+    /*
     console.log("result: ", result);
     const errors = {};
 
@@ -36,7 +46,7 @@ class LoginForm extends Component {
     if (account.password.trim() === "")
       errors.password = "Password is required.";
 
-    return Object.keys(errors).length === 0 ? null : errors;
+    return Object.keys(errors).length === 0 ? null : errors; */
   };
 
   handleSubmit = e => {
