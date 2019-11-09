@@ -2,6 +2,8 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 
+import { saveMovie } from "../services/fakeMovieService";
+
 class MovieForm extends Form {
   state = {
     data: { title: "", genre: "", numberInStock: "", dailyRentalRate: "" },
@@ -19,13 +21,13 @@ class MovieForm extends Form {
       .label("Genre"),
     numberInStock: Joi.number()
       .positive()
-      .less(6)
+      .max(100)
       .integer()
       .required()
       .label("Stock"),
     dailyRentalRate: Joi.number()
       .greater(0)
-      .less(6)
+      .max(10)
       .precision(2)
       .required()
       .label("Rate")
@@ -34,6 +36,25 @@ class MovieForm extends Form {
   doSubmit = history => {
     console.log("Form submitted");
     // Save the changes
+
+    const { title, genre, numberInStock, dailyRentalRate } = this.state.data;
+
+    const day = new Date();
+    const now = day.getUTCDate();
+
+    const movie = {
+      name: title,
+      genreId: "5b21ca3eeb7f6fbccd471818",
+      numberInStock: numberInStock,
+      dailyRentalRate: dailyRentalRate,
+      publishDate: now,
+      liked: false
+    };
+
+    console.log("movie: ", movie);
+    const savedMovie = saveMovie(movie);
+    console.log("savedMovie: ", savedMovie);
+
     // Redirect the user
 
     history.replace("/movies");
