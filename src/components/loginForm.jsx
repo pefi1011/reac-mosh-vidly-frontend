@@ -19,14 +19,18 @@ class LoginForm extends Component {
     // Redirect the user
   };
 
-  handleChange = e => {
+  // Instead of passing the e object (event)
+  // and then withtin the method writing e.currentTarget.name and e.currentTarget.value
+  // we can DOB it in the params immedielty, i.e. extract the currentTarget from the event
+  // then we rename the currentTarget to input
+  handleChange = ({ currentTarget: input }) => {
     // we use the spread opperator to clone the account object from the state
     const account = { ...this.state.account };
 
     // we do not want to have a handler for passowrd property, we want to set
     // a property of the object dynamically -> work with bracket notation instesad of . notation
     // We have our input fields a name property and based on it we access it
-    account[e.currentTarget.name] = e.currentTarget.value;
+    account[input.name] = input.value;
 
     this.setState({ account });
   };
