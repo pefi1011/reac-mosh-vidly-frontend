@@ -1,22 +1,30 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
-
-import { saveMovie } from "../services/fakeMovieService";
+import Select from "./common/select";
+import { saveMovie, getMovie } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
 
 class MovieForm extends Form {
   state = {
-    data: { title: "", genre: "", numberInStock: "", dailyRentalRate: "" },
+    data: {
+      title: "",
+      genreId: "",
+      numberInStock: "",
+      dailyRentalRate: ""
+    },
+    genres: [],
     errors: {}
   };
 
   // Define JOI SCHEMA
   // it's not part of the state bc it does not have to change
   schema = {
+    _id: Joi.string(),
     title: Joi.string()
       .required()
       .label("Title"),
-    genre: Joi.string()
+    genreId: Joi.string()
       .required()
       .label("Genre"),
     numberInStock: Joi.number()
@@ -33,31 +41,48 @@ class MovieForm extends Form {
       .label("Rate")
   };
 
-  doSubmit = history => {
-    console.log("Form submitted");
-    // Save the changes
+  componentDidMount() {
+    const { history, match } = this.props;
 
-    const { title, genre, numberInStock, dailyRentalRate } = this.state.data;
+    const genres = getGenres();
+    this.setState({ genres });
 
-    const day = new Date();
-    const now = day.getUTCDate();
+    const { movieId } = match.params;
 
-    const movie = {
-      name: title,
-      genreId: "5b21ca3eeb7f6fbccd471818",
-      numberInStock: numberInStock,
-      dailyRentalRate: dailyRentalRate,
-      publishDate: now,
-      liked: false
+    if (movieId === "new") return;
+
+    // get movie by id
+    console.log("get movie by id: ", movieId);
+    const foundMovie = getMovie(movieId);
+    console.log("found movie: ", foundMovie);
+
+    if (!foundMovie) {
+      //return history.replace("/not-found");
+    }
+
+    this.setState({ data: this.mapToViewModel(foundMovie) });
+  }
+
+  mapToViewModel(movie) {
+    return {
+      _id: movie._id,
+      title: movie.title,
+      genreId: movie.genre._id,
+      numberInStock: movie.numberInStock,
+      dailyRentalRate: movie.dailyRentalRate
     };
+  }
 
-    console.log("movie: ", movie);
-    const savedMovie = saveMovie(movie);
+  doSubmit = () => {
+    console.log("Form submitted");
+    const { history } = this.props;
+
+    // Save the changes
+    const savedMovie = saveMovie(this.state.data);
     console.log("savedMovie: ", savedMovie);
 
     // Redirect the user
-
-    history.replace("/movies");
+    history.push("/movies");
   };
 
   render() {
@@ -71,16 +96,15 @@ class MovieForm extends Form {
 
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title")}
-          {this.renderInput("genre", "Genre")}
+          {this.renderSelect("genreId", "Genre", this.state.genres)}
           {this.renderInput("numberInStock", "Number in Stock")}
           {this.renderInput("dailyRentalRate", "Rate")}
         </form>
 
         <button
           type="button"
-          disabled={this.validate()}
           className="btn btn-primary"
-          onClick={() => this.doSubmit(history)}
+          onClick={this.doSubmit}
         >
           Save
         </button>
