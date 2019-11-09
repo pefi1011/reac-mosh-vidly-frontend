@@ -4,13 +4,25 @@ import Input from "./common/input";
 
 class LoginForm extends Component {
   state = {
-    account: { username: "", password: "" }
+    account: { username: "", password: "" },
+    erros: {}
   };
   // 2. Creating a ref object
   username = React.createRef();
 
+  validate = () => {
+    return { username: "Username is requried" };
+  };
+
   handleSubmit = e => {
     e.preventDefault();
+
+    const erros = this.validate();
+    // we change the state and let react rerender the view and show errors
+    this.setState({ erros });
+
+    // if there are any errors, we return, i.e. we abort the form submition. We do not call the server
+    if (erros) return;
 
     const username = this.username.current.value;
 
@@ -21,17 +33,10 @@ class LoginForm extends Component {
     // Redirect the user
   };
 
-  // Instead of passing the e object (event)
-  // and then withtin the method writing e.currentTarget.name and e.currentTarget.value
-  // we can DOB it in the params immedielty, i.e. extract the currentTarget from the event
-  // then we rename the currentTarget to input
   handleChange = ({ currentTarget: input }) => {
     // we use the spread opperator to clone the account object from the state
     const account = { ...this.state.account };
 
-    // we do not want to have a handler for passowrd property, we want to set
-    // a property of the object dynamically -> work with bracket notation instesad of . notation
-    // We have our input fields a name property and based on it we access it
     account[input.name] = input.value;
 
     this.setState({ account });
