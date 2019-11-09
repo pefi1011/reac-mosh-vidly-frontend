@@ -24,9 +24,11 @@ class LoginForm extends Component {
   username = React.createRef();
 
   validate = () => {
-    const { error } = Joi.validate(this.state.account, this.schema, {
+    const joiOptions = {
       abortEarly: false
-    });
+    };
+
+    const { error } = Joi.validate(this.state.account, this.schema, joiOptions);
 
     // no validation error founds
     if (!error) return null;
