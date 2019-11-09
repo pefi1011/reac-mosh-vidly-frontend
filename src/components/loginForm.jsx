@@ -5,11 +5,6 @@ class LoginForm extends Component {
   // 2. Creating a ref object
   username = React.createRef();
 
-  componentDidMount() {
-    // when our component is mounted, I want the username field to get the focus!
-    this.username.current.focus();
-  }
-
   handleSubmit = e => {
     // In this case, prevents submitting
     // the form to the server which causes the full page reload
@@ -56,7 +51,7 @@ class LoginForm extends Component {
             <label htmlFor="username">Username</label>
             {/** 3. NOW WE ASSIGN THE REF OBEJCT TO THE INPUT FIELD VIA REF ATTRIBUTE */}
             <input
-              ref={this.username}
+              autoFocus
               id="username"
               type="text"
               className="form-control"
