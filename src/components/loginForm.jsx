@@ -58,18 +58,7 @@ class LoginForm extends Component {
   };
 
   validateProperty = ({ name, value }) => {
-    // we want to create an object dynamically
-    // e.g. if the name is "password" and the value is "123"
-    // we want to have
-    // const obj = { password: "123"};
-    // e.g. if the name is "username" and the value is "fsp"
-    // we want to have
-    // const obj = { username: "fsp"};
-
-    // we use computed properties from the ES6 to achieve this goal
     const obj = { [name]: value };
-    // we create a new object using the computed propertiees from the ES6
-    // we extract only the required property from the schema object
     const schema = { [name]: this.schema[name] };
     const { error } = Joi.validate(obj, schema);
 
@@ -112,6 +101,7 @@ class LoginForm extends Component {
             label="Username"
             onChange={this.handleChange}
             error={errors.username}
+            autoFocus
           />
 
           <Input
@@ -122,7 +112,12 @@ class LoginForm extends Component {
             error={errors.password}
           />
 
-          <button className="btn btn-primary">Login</button>
+          {/** this.validate() returns null or an error object null is considers as falsy, 
+          so the disabled will be set to false. 
+          An object is considered to be truthy, so disabled will be set to true */}
+          <button disabled={this.validate()} className="btn btn-primary">
+            Login
+          </button>
         </form>
       </div>
     );
