@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 
 import Input from "./common/input";
+import Joi from "joi-browser";
 
 class LoginForm extends Component {
   state = {
     account: { username: "", password: "" },
     errors: {}
   };
+
+  // Define JOI SCHEMA
+  // it's not part of the state bc it does not have to change
+  schema = {
+    username: Joi.string().required(),
+    password: Joi.string().required()
+  };
+
   // 2. Creating a ref object
   username = React.createRef();
 
