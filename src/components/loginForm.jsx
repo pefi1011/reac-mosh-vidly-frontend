@@ -24,17 +24,17 @@ class LoginForm extends Component {
   username = React.createRef();
 
   validate = () => {
-    const result = Joi.validate(this.state.account, this.schema, {
+    const { error } = Joi.validate(this.state.account, this.schema, {
       abortEarly: false
     });
 
     // no validation error founds
-    if (!result.error) return null;
+    if (!error) return null;
 
     const errors = {};
 
     // mapping an array into object
-    for (let item of result.error.details) errors[item.path[0]] = item.message;
+    for (let item of error.details) errors[item.path[0]] = item.message;
 
     return errors;
     /*
