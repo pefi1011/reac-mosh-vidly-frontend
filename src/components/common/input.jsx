@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ name, label, value, onChange }) => {
+const Input = ({ name, label, value, error, onChange }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -17,6 +17,8 @@ const Input = ({ name, label, value, onChange }) => {
         type="text"
         className="form-control"
       />
+      {/** WE RENDER THE DIV ELEMENT ONLY IF THERE ARE ERRORS. IF ERROR DOES NOT EXIST (ITS FALSY), THEN THE EXPRESSION IS FALSE */}
+      {error && <div className="alert alert-danger">{error}</div>}
     </div>
   );
 };
