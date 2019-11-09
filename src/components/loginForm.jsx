@@ -40,13 +40,31 @@ class LoginForm extends Component {
     // Redirect the user
   };
 
+  validateProperty = input => {
+    if (input.name === "username") {
+      if (input.value.trim() === "") return "Username is required.";
+      // other rules
+    }
+  };
+
   handleChange = ({ currentTarget: input }) => {
+    // we are not calling
+    // this.validate()
+    // bc we just want to validate the current field, not the entire form!
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty(input);
+
+    // If there are errors, we set the error for the given field
+    // otherwise we delete them
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
+
     // we use the spread opperator to clone the account object from the state
     const account = { ...this.state.account };
 
     account[input.name] = input.value;
 
-    this.setState({ account });
+    this.setState({ account, errors });
   };
 
   render() {
