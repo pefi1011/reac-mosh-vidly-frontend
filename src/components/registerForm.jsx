@@ -10,11 +10,7 @@ class RegisterForm extends Form {
       password: "",
       name: ""
     },
-    errors: {
-      username: "",
-      password: "",
-      name: ""
-    }
+    errors: {}
   };
 
   schema = {
@@ -28,15 +24,13 @@ class RegisterForm extends Form {
       .label("Password"),
     name: Joi.string()
       .trim()
-      .min(2)
       .required()
       .label("Name")
   };
 
   doSubmit = () => {
+    // Call the server
     console.log("Form submitted");
-    // Save the changes
-    // Redirect the user
   };
 
   render() {
