@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Input from "./common/input";
 import Joi from "joi-browser";
+import { register } from "../serviceWorker";
 
 class LoginForm extends Component {
   state = {
@@ -39,20 +40,6 @@ class LoginForm extends Component {
     for (let item of error.details) errors[item.path[0]] = item.message;
 
     return errors;
-    /*
-    console.log("result: ", result);
-    const errors = {};
-
-    const { account } = this.state;
-
-    // for each input field we write validation logic
-    if (account.username.trim() === "")
-      errors.username = "Username is required.";
-
-    if (account.password.trim() === "")
-      errors.password = "Password is required.";
-
-    return Object.keys(errors).length === 0 ? null : errors; */
   };
 
   handleSubmit = e => {
@@ -70,15 +57,24 @@ class LoginForm extends Component {
     // Redirect the user
   };
 
-  validateProperty = ({ value, name }) => {
-    if (name === "username") {
-      if (value.trim() === "") return "Username is required.";
-      // other rules
-    }
-    if (name === "password") {
-      if (value.trim() === "") return "Password is required.";
-      // other rules
-    }
+  validateProperty = ({ name, value }) => {
+    // we want to create an object dynamically
+    // e.g. if the name is "password" and the value is "123"
+    // we want to have
+    // const obj = { password: "123"};
+    // e.g. if the name is "username" and the value is "fsp"
+    // we want to have
+    // const obj = { username: "fsp"};
+
+    // we use computed properties from the ES6 to achieve this goal
+    const obj = { [name]: value };
+    // we create a new object using the computed propertiees from the ES6
+    // we extract only the required property from the schema object
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema);
+
+    // If the error is truthy, we return the error msg otherwise null
+    return error ? error.details[0].message : null;
   };
 
   handleChange = ({ currentTarget: input }) => {
