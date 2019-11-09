@@ -13,11 +13,16 @@ class LoginForm extends Component {
   validate = () => {
     const errors = {};
 
+    const { account } = this.state;
+
     // for each input field we write validation logic
-    if (this.state.account.username.trim() === "")
+    if (account.username.trim() === "")
       errors.username = "Username is required.";
 
-    return { username: "Username is requried" };
+    if (account.password.trim() === "")
+      errors.username = "Password is required.";
+
+    return Object.keys(errors).length === 0 ? null : errors;
   };
 
   handleSubmit = e => {
