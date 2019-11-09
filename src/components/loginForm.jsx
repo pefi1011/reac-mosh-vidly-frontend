@@ -9,6 +9,16 @@ class LoginForm extends Component {
     e.preventDefault();
 
     // Call the server
+
+    // In Vanilla JS we will get the value of an input field like this
+    // AND THIS IS HOW YOU DO NOT DO IT IN REACT!
+    // IN REACT, YOU NEVER WORK WITH A DOCUMENT OBJECT
+    // THE WHOLE POINT OF REACT IS TO PUT AN ABSTRACTION OVER
+    // THE DOCUMENT OBJECT (MODEL), i.e. OVER DOM
+    const username = document.getElementById("username").value;
+
+    console.log("username: ", username);
+
     console.log("Form submitted");
     // Save the changes
     // Redirect the user
