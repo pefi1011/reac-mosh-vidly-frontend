@@ -2,9 +2,13 @@ import React, { Component } from "react";
 
 class LoginForm extends Component {
   state = {};
-
   // 2. Creating a ref object
   username = React.createRef();
+
+  componentDidMount() {
+    // when our component is mounted, I want the username field to get the focus!
+    this.username.current.focus();
+  }
 
   handleSubmit = e => {
     // In this case, prevents submitting
