@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { getMovies, deleteMovie } from "../services/fakeMovieService";
+import { getMovies, deleteMovie } from "../services/movieService";
 import Pagination from "./common/pagination";
 import paginate from "../utils/paginate";
 import Genre from "./genres";
 import { getGenres } from "../services/genreService";
 import MoviesTable from "./moviesTable";
-import Input from "./common/input";
 import _ from "lodash";
 import SearchBox from "./common/searchBox";
 
@@ -25,7 +24,9 @@ class Movies extends Component {
 
     const genres = [{ _id: "", name: "All Genres" }, ...data];
 
-    this.setState({ movies: getMovies(), genres });
+    const { data: movies } = await getMovies();
+
+    this.setState({ movies: movies, genres });
   }
 
   handleDeleteMovie = movieId => {
