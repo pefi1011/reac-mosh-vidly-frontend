@@ -17,7 +17,7 @@ axios.interceptors.response.use(null, error => {
     logger.log(error);
     // console.log("Logging the unexpected error", error);
     // 2. show a generic and friendly error msg
-    alert.error("An unexpected error occurred!");
+    alert("An unexpected error occurred!");
   }
 
   // FORWARD THE EXPECTED ERRORS

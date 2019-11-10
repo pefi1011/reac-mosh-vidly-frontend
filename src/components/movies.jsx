@@ -29,19 +29,28 @@ class Movies extends Component {
     this.setState({ movies: movies, genres });
   }
 
-  handleDeleteMovie = movieId => {
-    console.log("Show current movies in the state");
-    console.log(this.state.movies);
-
+  handleDeleteMovie = async movieId => {
     console.log("DELETE MOVIE:", movieId);
 
-    // TODO NE RAZUMEM ZASTO NIJE this.setState({movies: deleteMovie(movieId)})
-    this.setState(deleteMovie(movieId));
+    const originalMovies = this.state.movies;
+    // filter out all movies except the provided one
+    const movies = originalMovies.filter(movie => movie._id !== movieId);
 
-    console.log("Show current movies in the state");
-    console.log(this.state.movies);
+    // OPTIMISTIC UPDATE
+    // 1. update UI
+    this.setState({ movies });
 
-    // this.setState({ movies: newMovies });
+    // 2. delete the movie
+    try {
+      await deleteMovie(movieId);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) {
+        alert("Movie has been already deleted");
+
+        // 3. In case of error, revert the UI state
+        this.setState({ movies: originalMovies });
+      }
+    }
   };
 
   handleLike = movie => {
