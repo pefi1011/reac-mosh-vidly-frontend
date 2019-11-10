@@ -3,7 +3,7 @@ import { getMovies, deleteMovie } from "../services/fakeMovieService";
 import Pagination from "./common/pagination";
 import paginate from "../utils/paginate";
 import Genre from "./genres";
-import { getGenres } from "../services/fakeGenreService";
+import { getGenres } from "../services/genreService";
 import MoviesTable from "./moviesTable";
 import Input from "./common/input";
 import _ from "lodash";
