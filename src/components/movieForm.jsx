@@ -83,12 +83,12 @@ class MovieForm extends Form {
     };
   }
 
-  doSubmit = () => {
+  doSubmit = async () => {
     console.log("Form submitted");
     const { history } = this.props;
 
     // Save the changes
-    const savedMovie = saveMovie(this.state.data);
+    const savedMovie = await saveMovie(this.state.data);
     console.log("savedMovie: ", savedMovie);
 
     // Redirect the user
