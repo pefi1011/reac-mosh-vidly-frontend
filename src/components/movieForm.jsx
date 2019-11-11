@@ -2,8 +2,8 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import Select from "./common/select";
-import { saveMovie, getMovie } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { saveMovie, getMovie } from "../services/movieService";
+import { getGenres } from "../services/genreService";
 
 class MovieForm extends Form {
   state = {
@@ -41,10 +41,11 @@ class MovieForm extends Form {
       .label("Rate")
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { history, match } = this.props;
 
-    const genres = getGenres();
+    const { data: genres } = await getGenres();
+
     this.setState({ genres });
 
     const { movieId } = match.params;
@@ -53,7 +54,7 @@ class MovieForm extends Form {
 
     // get movie by id
     console.log("get movie by id: ", movieId);
-    const foundMovie = getMovie(movieId);
+    const { data: foundMovie } = await getMovie(movieId);
     console.log("found movie: ", foundMovie);
 
     if (!foundMovie) {
