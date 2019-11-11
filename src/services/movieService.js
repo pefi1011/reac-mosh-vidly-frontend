@@ -3,12 +3,16 @@ import config from "../config.json";
 
 const ENDPOINT = config.apiEndpoint + "/movies";
 
+function movieUrl(id) {
+  return `${ENDPOINT}/${id}`;
+}
+
 export function getMovies() {
   return http.get(ENDPOINT);
 }
 
 export function getMovie(movieId) {
-  return http.get(ENDPOINT + "/" + movieId);
+  return http.get(movieUrl(movieId));
 }
 
 export function saveMovie(movie) {
@@ -18,7 +22,7 @@ export function saveMovie(movie) {
   if (movie._id) {
     const body = { ...movie };
     delete body._id;
-    return http.put(ENDPOINT + "/" + movie._id, body);
+    return http.put(movieUrl(movie._id), body);
   }
 
   // otherwise we are creating a movie
@@ -26,5 +30,5 @@ export function saveMovie(movie) {
 }
 
 export function deleteMovie(movieId) {
-  http.delete(config.apiEndpoint + "/movies/" + movieId);
+  http.delete(movieUrl(movieId));
 }
