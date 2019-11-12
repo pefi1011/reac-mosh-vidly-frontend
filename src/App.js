@@ -24,12 +24,17 @@ class App extends Component {
     // 2. decode JWT to get the current user
     // 3. update the state
 
-    // 1. get the JWT from the local storage
-    const jwt = localStorage.getItem("token");
-    // 2. decode JWT to get the current user (using npm i jwt-decode@2.2.0)
-    const user = jwtDecode(jwt);
-    // 3. update the state
-    this.setState({ user });
+    try {
+      // 1. get the JWT from the local storage
+      const jwt = localStorage.getItem("token");
+      // 2. decode JWT to get the current user (using npm i jwt-decode@2.2.0)
+      const user = jwtDecode(jwt);
+      // 3. update the state
+      this.setState({ user });
+    } catch (ex) {
+      // The case when we do not have a valid JWT in the local storage -> anonymous user
+      // so we can just ignore this because its technically error
+    }
   }
 
   render() {
