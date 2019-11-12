@@ -36,7 +36,13 @@ class RegisterForm extends Form {
     try {
       // because the method returns a promise, we need to await it
       // and add async above
-      await userService.register(this.state.data);
+      const response = await userService.register(this.state.data);
+
+      // given backend sends JWT in the header with custom property (x-auth-token) upon successful registration
+      localStorage.setItem("token", response.headers["x-auth-token"]);
+
+      // Redirect user to home page
+      this.props.history.push("/");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
