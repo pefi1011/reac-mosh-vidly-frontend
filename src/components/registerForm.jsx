@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 
 import Form from "./common/form";
 import * as userService from "../services/userService";
+import authService from "../services/authService";
 
 class RegisterForm extends Form {
   state = {
@@ -38,8 +39,8 @@ class RegisterForm extends Form {
       // and add async above
       const response = await userService.register(this.state.data);
 
-      // given backend sends JWT in the header with custom property (x-auth-token) upon successful registration
-      localStorage.setItem("token", response.headers["x-auth-token"]);
+      const jwt = response.headers["x-auth-token"];
+      authService.loginWithJwt(jwt);
 
       // Redirect user to home page
       // this.props.history.push("/");

@@ -5,6 +5,7 @@ import config from "../config.json";
 import http from "./httpService";
 
 const ENDPOINT = config.apiEndpoint + "/auth";
+const TOKEN_KEY = "token";
 
 export async function login(email, password) {
   // user is the object of a user which should be registered
@@ -15,20 +16,24 @@ export async function login(email, password) {
     password: password
   });
 
-  localStorage.setItem("token", jwt);
+  localStorage.setItem(TOKEN_KEY, jwt);
 
   // SINCE PROPERTY NAME AND VALUE ARE THE SAME, YOU CAN SIMPLIFY THE CODE
   // return http.post(ENDPOINT, { email, password  });
 }
 
+export function loginWithJwt(jwt) {
+  localStorage.setItem(TOKEN_KEY, jwt);
+}
+
 export function logout() {
-  localStorage.removeItem("token");
+  localStorage.removeItem(TOKEN_KEY);
 }
 
 export function getCurrentUser() {
   try {
     // 1. get the JWT from the local storage
-    const jwt = localStorage.getItem("token");
+    const jwt = localStorage.getItem(TOKEN_KEY);
     // 2. decode JWT to get the current user (using npm i jwt-decode@2.2.0)
     const user = jwtDecode(jwt);
 
@@ -44,5 +49,6 @@ export function getCurrentUser() {
 export default {
   login,
   logout,
-  getCurrentUser
+  getCurrentUser,
+  loginWithJwt
 };
