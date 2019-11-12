@@ -29,7 +29,16 @@ class LoginForm extends Form {
     const { data } = this.state;
 
     try {
-      await authService.login(data.username, data.password);
+      const { data: jwt } = await authService.login(
+        data.username,
+        data.password
+      );
+
+      // save JWT in browser's database = local storage
+      localStorage.setItem("token", jwt);
+
+      // redirect user to home page after login
+      this.props.history.push("/");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
