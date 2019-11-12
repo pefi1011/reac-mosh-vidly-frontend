@@ -17,3 +17,12 @@ export async function login(email, password) {
   // SINCE PROPERTY NAME AND VALUE ARE THE SAME, YOU CAN SIMPLIFY THE CODE
   // return http.post(ENDPOINT, { email, password  });
 }
+
+export function logout() {
+  localStorage.removeItem("token");
+}
+
+export default {
+  login,
+  logout
+};
