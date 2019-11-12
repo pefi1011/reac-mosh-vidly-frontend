@@ -1,7 +1,6 @@
 // IMPORT 3RD PARTY LIBRARIES
 import React, { Component } from "react";
 import Movies from "./components/movies";
-import jwtDecode from "jwt-decode";
 // IMPORT OUR OWN COMPONENTS
 import NavBar from "./components/navbar";
 import { Route, Switch, Redirect } from "react-router-dom";
@@ -16,26 +15,17 @@ import Logout from "./components/common/logout";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
+import authService from "./services/authService";
 
 class App extends Component {
   state = {};
 
   componentDidMount() {
-    // 1. get the JWT from the local storage
-    // 2. decode JWT to get the current user
-    // 3. update the state
+    // 1. get current user
+    const user = authService.getCurrentUser();
 
-    try {
-      // 1. get the JWT from the local storage
-      const jwt = localStorage.getItem("token");
-      // 2. decode JWT to get the current user (using npm i jwt-decode@2.2.0)
-      const user = jwtDecode(jwt);
-      // 3. update the state
-      this.setState({ user });
-    } catch (ex) {
-      // The case when we do not have a valid JWT in the local storage -> anonymous user
-      // so we can just ignore this because its technically error
-    }
+    // 2. update the state
+    this.setState({ user });
   }
 
   render() {
