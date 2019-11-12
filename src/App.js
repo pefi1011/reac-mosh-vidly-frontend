@@ -11,6 +11,7 @@ import Rentals from "./components/rentals";
 import MovieForm from "./components/movieForm";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import Logout from "./components/common/logout";
 // IMPORT CSS FILES
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -44,6 +45,7 @@ class App extends Component {
         <main className="container">
           <Switch>
             <Route path="/login" component={LoginForm}></Route>
+            <Route path="/logout" component={Logout}></Route>
             <Route path="/register" component={RegisterForm}></Route>
             <Redirect from="/home" to="/movies"></Redirect>
             <Route path="/movies/:movieId" component={MovieForm}></Route>
