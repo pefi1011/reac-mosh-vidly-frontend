@@ -42,7 +42,11 @@ class RegisterForm extends Form {
       localStorage.setItem("token", response.headers["x-auth-token"]);
 
       // Redirect user to home page
-      this.props.history.push("/");
+      // this.props.history.push("/");
+      //  INSTEAD OF REDIRECT USER TO HOME PAGE UPON REGISTRATION
+      // WE HAVE TO DO A FULL RELOAD OF THE APPLICATION
+      // bc that will cause our App Component will be mounted again (componentDidMount() will be executed again)
+      window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
