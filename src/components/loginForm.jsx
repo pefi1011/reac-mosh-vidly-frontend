@@ -24,18 +24,12 @@ class LoginForm extends Form {
   doSubmit = async () => {
     console.log("Form submitted");
     // Save the changes
-    // Redirect the user
-
-    const { data } = this.state;
+    // Redirect the use
 
     try {
-      const { data: jwt } = await authService.login(
-        data.username,
-        data.password
-      );
+      const { data } = this.state;
 
-      // save JWT in browser's database = local storage
-      localStorage.setItem("token", jwt);
+      await authService.login(data.username, data.password);
 
       // redirect user to home page after login
       // this.props.history.push("/");
