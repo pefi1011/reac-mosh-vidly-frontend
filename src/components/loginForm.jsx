@@ -28,7 +28,15 @@ class LoginForm extends Form {
 
     const { data } = this.state;
 
-    await authService.login(data.username, data.password);
+    try {
+      await authService.login(data.username, data.password);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
