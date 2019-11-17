@@ -28,15 +28,10 @@ class LoginForm extends Form {
 
     try {
       const { data } = this.state;
-
       await authService.login(data.username, data.password);
 
-      // redirect user to home page after login
-      // this.props.history.push("/");
-      // INSTEAD OF REDIRECT USER TO HOME PAGE UPON LOGIN
-      // WE HAVE TO DO A FULL RELOAD OF THE APPLICATION
-      // bc that will cause our App Component will be mounted again (componentDidMount() will be executed again)
-      window.location = "/";
+      const { state } = this.props.location;
+      window.location = state ? state.from.pathname : "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
