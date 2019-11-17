@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import Joi from "joi-browser";
 
 import Form from "./common/form";
@@ -43,6 +44,11 @@ class LoginForm extends Form {
 
   render() {
     // In our render method we do the object destructuring
+
+    // if the user is logged in, we redirect it to the homepage
+    // we did not use window.location = "/" because we use that only when the user
+    // is trying to login -> we want to reload the app, so it gets in the correct state by knowing the current user
+    if (authService.getCurrentUser()) return <Redirect to="/" />;
 
     return (
       <div>
