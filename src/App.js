@@ -50,8 +50,8 @@ class App extends Component {
             <Route path="/rentals" component={Rentals}></Route>
 
             <Route path="/not-found" component={NotFound}></Route>
-            <Route path="/" exact component={Movies}></Route>
 
+            <Redirect from="/" to="/movies"></Redirect>
             <Redirect to="/not-found"></Redirect>
           </Switch>
           <></>
