@@ -12,7 +12,7 @@ const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
       //  path={path}
       {...rest}
       render={props => {
-        if (!authService.getCurrentUser()) return <Redirect to="login" />;
+        if (!authService.getCurrentUser()) return <Redirect to="/login" />;
 
         // If component is truthy, we return it
         // otherwise, we return the render function
