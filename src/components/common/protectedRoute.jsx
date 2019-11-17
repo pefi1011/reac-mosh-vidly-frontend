@@ -8,7 +8,8 @@ import authService from "../../services/authService";
 const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
   return (
     <Route
-      path={path}
+      // We can remove path={path} bc that will be picked by {...rest}
+      //  path={path}
       {...rest}
       render={props => {
         if (!authService.getCurrentUser()) return <Redirect to="login" />;
