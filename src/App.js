@@ -39,7 +39,13 @@ class App extends Component {
             <Route path="/register" component={RegisterForm}></Route>
             <Redirect from="/home" to="/movies"></Redirect>
             <Route path="/movies/:movieId" component={MovieForm}></Route>
-            <Route path="/movies" exact component={Movies}></Route>
+            {/** re place component with render (to that we can pass user object to the child component) and pass a function */}
+            {/** we need to pass all other props {...props} which contains all objects which react automatically injects when using
+           routing. For example, history, match, location, etc. In addition to that pro, we pass user prop*/}
+            <Route
+              path="/movies"
+              render={props => <Movies {...props} user={this.state.user} />}
+            ></Route>
             <Route path="/customers" component={Customers}></Route>
             <Route path="/rentals" component={Rentals}></Route>
 

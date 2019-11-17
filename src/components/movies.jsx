@@ -129,6 +129,7 @@ class Movies extends Component {
   render() {
     const { genres, selectedGenre } = this.state;
     const { history } = this.props;
+    const { user } = this.props;
 
     return (
       <React.Fragment>
@@ -143,12 +144,15 @@ class Movies extends Component {
             </div>
             <div className="col">
               <div className="row mb-4">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => this.handleClick(history)}
-                >
-                  {"New Movie"}
-                </button>
+                {/** if user is truthy (it exits), then we have the button component */}
+                {user && (
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => this.handleClick(history)}
+                  >
+                    New Movie
+                  </button>
+                )}
               </div>
               <div className="row"> {this.renderMovies()}</div>
             </div>
