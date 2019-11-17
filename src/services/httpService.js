@@ -1,10 +1,11 @@
 import axios from "axios";
 import logger from "./logService";
-import authService from "./authService";
 
 // whenever you want to send a request,
 // axios make sure to include this headers
 // if the user is not logged in, getJwt() will return undefined and the header will not be set
+// THIS CODE IS BAD BECAUSE ITS BI-DIRECTIONAL DEPENDENCY
+// httpService has dependency to authService and authService has dependency to httpService
 axios.defaults.headers.common["x-auth-token"] = authService.getJwt();
 
 // include headers only in post requests
