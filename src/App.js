@@ -41,7 +41,7 @@ class App extends Component {
             <Route path="/movies/:movieId" component={MovieForm}></Route>
             {/** re place component with render (to that we can pass user object to the child component) and pass a function */}
             {/** we need to pass all other props {...props} which contains all objects which react automatically injects when using
-           routing. For example, history, match, location, etc. In addition to that pro, we pass user prop*/}
+           routing. For example, history, match, location, etc. In addition to that pro, we pass the user prop*/}
             <Route
               path="/movies"
               render={props => <Movies {...props} user={this.state.user} />}
