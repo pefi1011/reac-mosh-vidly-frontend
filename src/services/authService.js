@@ -22,6 +22,7 @@ export async function login(email, password) {
   // return http.post(ENDPOINT, { email, password  });
 }
 
+// Used by register form (this app returns JWT immediately upon registration)
 export function loginWithJwt(jwt) {
   localStorage.setItem(TOKEN_KEY, jwt);
 }
@@ -46,9 +47,15 @@ export function getCurrentUser() {
   }
 }
 
+export function getJwt() {
+  return localStorage.getItem(TOKEN_KEY);
+}
+
+// In case you want to import only a single function from this module
 export default {
   login,
   logout,
   getCurrentUser,
-  loginWithJwt
+  loginWithJwt,
+  getJwt
 };
