@@ -17,7 +17,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 import authService from "./services/authService";
-import MovieForm from "./components/movieForm";
 
 class App extends Component {
   state = {};
