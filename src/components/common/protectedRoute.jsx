@@ -12,7 +12,21 @@ const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
       //  path={path}
       {...rest}
       render={props => {
-        if (!authService.getCurrentUser()) return <Redirect to="/login" />;
+        // location object represents the current location (pathname) before we got redirected to the login page
+        // i.e. the page where we wanted to go
+
+        // we pass an object to the "to" property.
+        // the object contains "pathname", i.e. were to redirect
+        // and "state" with our additional data which we want to pass
+        if (!authService.getCurrentUser())
+          return (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location }
+              }}
+            />
+          );
 
         // If component is truthy, we return it
         // otherwise, we return the render function
