@@ -11,11 +11,13 @@ import MovieForm from "./components/movieForm";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import Logout from "./components/common/logout";
+import ProtectedRoute from "./components/common/protectedRoute";
 // IMPORT CSS FILES
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 import authService from "./services/authService";
+import MovieForm from "./components/movieForm";
 
 class App extends Component {
   state = {};
@@ -40,17 +42,10 @@ class App extends Component {
             <Route path="/logout" component={Logout}></Route>
             <Route path="/register" component={RegisterForm}></Route>
             <Redirect from="/home" to="/movies"></Redirect>
-            <Route
+            <ProtectedRoute
               path="/movies/:movieId"
-              render={props => {
-                {
-                  /** If use is falsly, we redirect to login */
-                }
-                if (!user) return <Redirect to="login" />;
-
-                return <MovieForm {...props} />;
-              }}
-            ></Route>
+              component={MovieForm}
+            ></ProtectedRoute>
             {/** re place component with render (to that we can pass user object to the child component) and pass a function */}
             {/** we need to pass all other props {...props} which contains all objects which react automatically injects when using
            routing. For example, history, match, location, etc. In addition to that pro, we pass the user prop*/}
