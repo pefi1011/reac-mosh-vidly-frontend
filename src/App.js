@@ -29,6 +29,8 @@ class App extends Component {
   }
 
   render() {
+    const { user } = this.state;
+
     return (
       <React.Fragment>
         <NavBar user={this.state.user}></NavBar>
@@ -38,13 +40,23 @@ class App extends Component {
             <Route path="/logout" component={Logout}></Route>
             <Route path="/register" component={RegisterForm}></Route>
             <Redirect from="/home" to="/movies"></Redirect>
-            <Route path="/movies/:movieId" component={MovieForm}></Route>
+            <Route
+              path="/movies/:movieId"
+              render={props => {
+                {
+                  /** If use is falsly, we redirect to login */
+                }
+                if (!user) return <Redirect to="login" />;
+
+                return <MovieForm {...props} />;
+              }}
+            ></Route>
             {/** re place component with render (to that we can pass user object to the child component) and pass a function */}
             {/** we need to pass all other props {...props} which contains all objects which react automatically injects when using
            routing. For example, history, match, location, etc. In addition to that pro, we pass the user prop*/}
             <Route
               path="/movies"
-              render={props => <Movies {...props} user={this.state.user} />}
+              render={props => <Movies {...props} user={user} />}
             ></Route>
             <Route path="/customers" component={Customers}></Route>
             <Route path="/rentals" component={Rentals}></Route>
