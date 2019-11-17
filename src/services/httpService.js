@@ -6,7 +6,6 @@ import logger from "./logService";
 // if the user is not logged in, getJwt() will return undefined and the header will not be set
 // THIS CODE IS BAD BECAUSE ITS BI-DIRECTIONAL DEPENDENCY
 // httpService has dependency to authService and authService has dependency to httpService
-axios.defaults.headers.common["x-auth-token"] = authService.getJwt();
 
 // include headers only in post requests
 //axios.defaults.headers.post["x-auth-token"] = authService.getJwt();
@@ -37,10 +36,15 @@ axios.interceptors.response.use(null, error => {
   return Promise.reject(error);
 });
 
+function setJwt(jwt) {
+  axios.defaults.headers.common["x-auth-token"] = jwt;
+}
+
 export default {
   get: axios.get,
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
-  patch: axios.patch
+  patch: axios.patch,
+  setJwt
 };

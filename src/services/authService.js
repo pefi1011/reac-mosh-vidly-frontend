@@ -3,9 +3,12 @@ import jwtDecode from "jwt-decode";
 // CUSTOM COMPONENTS
 import config from "../config.json";
 import http from "./httpService";
+import httpService from "./httpService";
 
 const ENDPOINT = config.apiEndpoint + "/auth";
 const TOKEN_KEY = "token";
+
+httpService.setJwt(getJwt());
 
 export async function login(email, password) {
   // user is the object of a user which should be registered
