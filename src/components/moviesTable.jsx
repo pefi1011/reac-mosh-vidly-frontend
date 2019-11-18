@@ -22,6 +22,18 @@ class MoviesTable extends Component {
     }
   ];
 
+  deleteColumn = {
+    key: "delete",
+    content: movie => (
+      <button
+        onClick={() => this.props.onDelete(movie._id)}
+        className="btn btn-danger btn-sm"
+      >
+        Delete
+      </button>
+    )
+  };
+
   constructor() {
     super();
     const user = authService.getCurrentUser();
@@ -30,17 +42,7 @@ class MoviesTable extends Component {
       // if the user is logged-in and its admin
       // then we add delete column to the columns
 
-      this.columns.push({
-        key: "delete",
-        content: movie => (
-          <button
-            onClick={() => this.props.onDelete(movie._id)}
-            className="btn btn-danger btn-sm"
-          >
-            Delete
-          </button>
-        )
-      });
+      this.columns.push(this.deleteColumn);
     }
   }
 
