@@ -150,8 +150,7 @@ class Movies extends Component {
                     className="btn btn-primary"
                     onClick={() => this.handleClick(history)}
                   >
-                    {" "}
-                    New Movie{" "}
+                    New Movie
                   </button>
                 )}
               </div>
